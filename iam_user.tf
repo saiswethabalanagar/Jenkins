@@ -89,4 +89,9 @@ resource "random_pet" "example" {
   length    = 2
   separator = "-"
 }
+resource "aws_iam_instance_profile" "example_instance_profile" {
+  name = "example-instance-profile-${random_pet.example.id}"  # Using a unique identifier
+
+  role = aws_iam_role.example_role.name
+}
 
