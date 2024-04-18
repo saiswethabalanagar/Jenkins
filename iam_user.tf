@@ -1,5 +1,5 @@
 resource "aws_iam_policy" "example_policy" {
-  name        = "example-policy-${random_pet.example.id}"  # Using a unique identifier
+  name        = "example-policy-${random_pet.example.id}"
   description = "An example IAM policy"
   policy      = jsonencode({
     Version   = "2012-10-17",
@@ -39,7 +39,7 @@ resource "aws_iam_policy" "example_policy" {
 }
 
 resource "aws_iam_user" "example" {
-  name = "example"
+  name = "example-${random_pet.example.id}"  # Using a unique identifier
 }
 
 resource "aws_iam_user_policy_attachment" "example_attachment" {
@@ -71,7 +71,7 @@ resource "aws_iam_role_policy_attachment" "example_attachment" {
 }
 
 resource "aws_iam_group" "new_group" {
-  name = "new_group_name"
+  name = "new_group_name-${random_pet.example.id}"  # Using a unique identifier
 }
 
 resource "aws_iam_group_policy_attachment" "attach_group_policy" {
@@ -89,3 +89,4 @@ resource "random_pet" "example" {
   length    = 2
   separator = "-"
 }
+
