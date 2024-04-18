@@ -1,3 +1,21 @@
+variable "region" {
+  description = "AWS region"
+  default     = "us-west-1"  # Change to your desired region
+}
+
+variable "public_subnet_cidr_block" {
+  description = "CIDR block for the public subnet"
+  default     = "10.0.1.0/24"
+}
+
+variable "private_subnet_cidr_block" {
+  description = "CIDR block for the private subnet"
+  default     = "10.0.2.0/24"
+}
+
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
+}
 
 resource "aws_subnet" "public1" {
   vpc_id            = aws_vpc.main.id
@@ -30,7 +48,7 @@ resource "aws_route_table" "private" {
 }
 
 resource "aws_route" "route_internet" {
-  for_each = { for idx, subnet in aws_subnet.public1 : idx => subnet }
+  for_each = aws_subnet.public1
   route_table_id         = aws_route_table.public.id
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = aws_internet_gateway.gw.id
@@ -42,7 +60,7 @@ resource "aws_eip" "nat" {
 
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat.id
-  subnet_id     = aws_subnet.public1.id
+  subnet_id     = aws_subnet.public1.id  # Use one of the public subnets for NAT Gateway
 }
 
 resource "aws_route" "route_nat" {
@@ -51,20 +69,8 @@ resource "aws_route" "route_nat" {
   nat_gateway_id         = aws_nat_gateway.nat.id
 }
 
-resource "aws_route_table_association" "public1" {
-  subnet_id      = aws_subnet.public1.id
+resource "aws_route_table_association" "public" {
+  for_each = aws_subnet.public1
+  subnet_id      = each.value.id
   route_table_id = aws_route_table.public.id
-}
-
-resource "aws_route_table_association" "public2" {
-  subnet_id      = aws_subnet.public2.id
-  route_table_id = aws_route_table.public.id
-}
-resource "aws_eip" "unused_eip" {
-  instance = null
-}
-
-resource "aws_route_table_association" "private" {
-  subnet_id      = aws_subnet.private.id
-  route_table_id = aws_route_table.private.id
 }
