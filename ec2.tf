@@ -1,9 +1,19 @@
+variable "key_pair_name" {
+  description = "Name of the EC2 key pair"
+  default     = "my_key_pair1"
+}
+
+variable "instance_type" {
+  description = "EC2 instance type"
+  default     = "t2.large"
+}
+
 resource "aws_instance" "web1" {
   ami           = "ami-0f8c7f2b2303b197a"  # Ubuntu 18.04 LTS AMI ID
-  instance_type = "t2.large"
+  instance_type = var.instance_type
   subnet_id     = aws_subnet.public1.id    # Using public subnet 1
 
-  key_name = local.key_pair_name
+  key_name = var.key_pair_name
 
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]  # Assuming you have a security group allowing SSH
 
@@ -36,10 +46,10 @@ resource "aws_instance" "web1" {
 
 resource "aws_instance" "web2" {
   ami           = "ami-0b3626b6e13c8ce0a"  # Ubuntu 18.04 LTS AMI ID
-  instance_type = "t2.large"
+  instance_type = var.instance_type
   subnet_id     = aws_subnet.public2.id    # Using public subnet 2
 
-  key_name = local.key_pair_name
+  key_name = var.key_pair_name
 
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]  # Assuming you have a security group allowing SSH
 
@@ -66,6 +76,4 @@ resource "aws_instance" "web2" {
     type        = "ssh"
     user        = "ec2-user"
     private_key = file("privatekey.pem")  # Path to your private key file
-    host        = self.public_ip
-  }
-}
+    host        = self
