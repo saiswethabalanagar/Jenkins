@@ -27,4 +27,3 @@ variable "private_subnet_cidr_block" {
   description = "CIDR block for the private subnet"
   default     = "10.0.2.0/24"
 }
-
