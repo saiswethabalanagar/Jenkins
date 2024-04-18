@@ -1,4 +1,3 @@
-
 resource "aws_instance" "web1" {
   ami           = "ami-0f8c7f2b2303b197a"  # Ubuntu 18.04 LTS AMI ID
   instance_type = var.instance_type
@@ -31,7 +30,7 @@ resource "aws_instance" "web1" {
     type        = "ssh"
     user        = "ec2-user"
     private_key = file("privatekey.pem")  # Path to your private key file
-    host        = self.public_ip
+    host        = aws_instance.web1.public_ip
   }
 }
 
@@ -67,6 +66,6 @@ resource "aws_instance" "web2" {
     type        = "ssh"
     user        = "ec2-user"
     private_key = file("privatekey.pem")  # Path to your private key file
-    host        = self.public_ip
+    host        = aws_instance.web2.public_ip
   }
 }
