@@ -1,5 +1,5 @@
 resource "aws_instance" "web1" {
-  ami           = "ami-0f8c7f2b2303b197a"  # Ubuntu 18.04 LTS AMI ID
+  ami           = "ami-05c969369880fa2c2"  # Ubuntu 18.04 LTS AMI ID
   instance_type = var.instance_type
   subnet_id     = aws_subnet.public1.id    # Using public subnet 1
 
@@ -35,7 +35,7 @@ resource "aws_instance" "web1" {
 }
 
 resource "aws_instance" "web2" {
-  ami           = "ami-0abcb9f9190b57b2e"  # Update to a valid AMI ID
+  ami           = "ami-05c969369880fa2c2"  # Update to a valid AMI ID
   instance_type = var.instance_type
   subnet_id     = aws_subnet.public2.id
 
