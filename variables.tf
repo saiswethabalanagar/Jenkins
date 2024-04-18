@@ -5,7 +5,7 @@ variable "region" {
 
 variable "key_pair_name" {
   description = "Name of the EC2 key pair"
-  default     = "my_key_pair1"
+  default     = "my_key_pair12"
 }
 
 variable "instance_type" {
