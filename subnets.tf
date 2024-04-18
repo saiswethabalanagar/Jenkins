@@ -1,19 +1,19 @@
 resource "aws_subnet" "public1" {
   vpc_id            = aws_vpc.main.id
-  cidr_block        = local.public_subnet_cidr_block
+  cidr_block        = "10.0.1.0/24"  # Update to a unique CIDR block
   availability_zone = "${var.region}a"
 }
 
 resource "aws_subnet" "public2" {
   vpc_id            = aws_vpc.main.id
-  cidr_block        = local.public_subnet_cidr_block
+  cidr_block        = "10.0.2.0/24"  # Update to a unique CIDR block
   availability_zone = "${var.region}b"
 }
 
 resource "aws_subnet" "private" {
   vpc_id            = aws_vpc.main.id
-  cidr_block        = local.private_subnet_cidr_block
-  availability_zone = "${var.region}c"
+  cidr_block        = "10.0.3.0/24"  # Update to a unique CIDR block
+  availability_zone = "${var.region}a"  # Use a valid availability zone
 }
 
 resource "aws_internet_gateway" "gw" {
