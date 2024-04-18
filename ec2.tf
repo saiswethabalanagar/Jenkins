@@ -35,7 +35,7 @@ resource "aws_instance" "web1" {
 }
 
 resource "aws_instance" "web2" {
-  ami           = "ami-0c55b159cbfafe1f0"  # Ubuntu 18.04 LTS AMI ID
+  ami           = "ami-0b3626b6e13c8ce0a"  # Ubuntu 18.04 LTS AMI ID
   instance_type = "t2.large"
   subnet_id     = aws_subnet.public2.id    # Using public subnet 2
 
