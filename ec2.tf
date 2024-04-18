@@ -20,6 +20,18 @@ resource "aws_instance" "web1" {
   tags = {
     Name = "WebServer1"
   }
+
+  provisioner "file" {
+    source      = "privatekey.pem"  # Path to your private key file
+    destination = "/home/ec2-user/privatekey.pem"
+  }
+
+  connection {
+    type        = "ssh"
+    user        = "ec2-user"
+    private_key = file("privatekey.pem")  # Path to your private key file
+    host        = self.public_ip
+  }
 }
 
 resource "aws_instance" "web2" {
@@ -44,5 +56,16 @@ resource "aws_instance" "web2" {
   tags = {
     Name = "WebServer2"
   }
-}
 
+  provisioner "file" {
+    source      = "privatekey.pem"  # Path to your private key file
+    destination = "/home/ec2-user/privatekey.pem"
+  }
+
+  connection {
+    type        = "ssh"
+    user        = "ec2-user"
+    private_key = file("privatekey.pem")  # Path to your private key file
+    host        = self.public_ip
+  }
+}
