@@ -18,5 +18,5 @@ EOF
 
 resource "aws_iam_role_policy_attachment" "example_attachment" {
   role       = aws_iam_role.example_role.name
-  policy_arn = aws_iam_policy.example_policy.arn
+  policy_arn = aws_iam_policy.example_policy1.arn
 }
