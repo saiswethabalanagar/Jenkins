@@ -7,7 +7,7 @@ resource "aws_instance" "web1" {
 
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]  # Assuming you have a security group allowing SSH
 
-  iam_instance_profile = aws_iam_role.example_role.name  # Assuming you have created an IAM role as described in the previous response
+  iam_instance_profile = aws_iam_instance_profile.example_instance_profile.name  # Using the IAM instance profile created earlier
 
   associate_public_ip_address = true  # Automatically enables IPv4 public addressing
 
@@ -42,7 +42,7 @@ resource "aws_instance" "web2" {
   key_name = var.key_pair_name
 
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
-  iam_instance_profile   = aws_iam_role.example_role.name
+  iam_instance_profile   = aws_iam_instance_profile.example_instance_profile.name
   associate_public_ip_address = true
 
   user_data = <<-EOF
