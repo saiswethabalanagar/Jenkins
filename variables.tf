@@ -1,6 +1,6 @@
 variable "region" {
   description = "AWS region"
-  default     = "us-west-2"  # Change to your desired region
+  default     = "us-west-1"  # Change to your desired region
 }
 
 variable "key_pair_name" {
