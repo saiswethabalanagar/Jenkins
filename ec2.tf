@@ -1,12 +1,3 @@
-variable "key_pair_name" {
-  description = "Name of the EC2 key pair"
-  default     = "my_key_pair1"
-}
-
-variable "instance_type" {
-  description = "EC2 instance type"
-  default     = "t2.large"
-}
 
 resource "aws_instance" "web1" {
   ami           = "ami-0f8c7f2b2303b197a"  # Ubuntu 18.04 LTS AMI ID
@@ -76,4 +67,6 @@ resource "aws_instance" "web2" {
     type        = "ssh"
     user        = "ec2-user"
     private_key = file("privatekey.pem")  # Path to your private key file
-    host        = self
+    host        = self.public_ip
+  }
+}
