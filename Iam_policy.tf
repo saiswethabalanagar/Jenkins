@@ -2,7 +2,7 @@ resource "aws_iam_policy" "example_policy1" {
   name        = "example-policy1"
   description = "An example IAM policy"
   policy      = jsonencode({
-    Version = "2012-10-17",
+    Version   = "2012-10-17",
     Statement = [
       {
         Effect   = "Allow",
