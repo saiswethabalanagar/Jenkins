@@ -1,21 +1,3 @@
-variable "region" {
-  description = "AWS region"
-  default     = "us-west-1"  # Change to your desired region
-}
-
-variable "public_subnet_cidr_block" {
-  description = "CIDR block for the public subnet"
-  default     = "10.0.1.0/24"
-}
-
-variable "private_subnet_cidr_block" {
-  description = "CIDR block for the private subnet"
-  default     = "10.0.2.0/24"
-}
-
-resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
-}
 
 resource "aws_subnet" "public1" {
   vpc_id            = aws_vpc.main.id
