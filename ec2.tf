@@ -1,5 +1,5 @@
 resource "aws_instance" "web1" {
-  ami           = "ami-0c55b159cbfafe1f0"  # Ubuntu 18.04 LTS AMI ID
+  ami           = "ami-0f8c7f2b2303b197a"  # Ubuntu 18.04 LTS AMI ID
   instance_type = "t2.large"
   subnet_id     = aws_subnet.public1.id    # Using public subnet 1
 
