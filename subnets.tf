@@ -1,18 +1,18 @@
 resource "aws_subnet" "public1" {
   vpc_id            = aws_vpc.main.id
-  cidr_block        = local.public_subnet_cidr
+  cidr_block        = local.public_subnet_cidr_block
   availability_zone = "${var.region}a"
 }
 
 resource "aws_subnet" "public2" {
   vpc_id            = aws_vpc.main.id
-  cidr_block        = local.public_subnet_cidr
+  cidr_block        = local.public_subnet_cidr_block
   availability_zone = "${var.region}b"
 }
 
 resource "aws_subnet" "private" {
   vpc_id            = aws_vpc.main.id
-  cidr_block        = local.private_subnet_cidr
+  cidr_block        = local.private_subnet_cidr_block
   availability_zone = "${var.region}c"
 }
 
@@ -35,8 +35,7 @@ resource "aws_route" "route_internet" {
   gateway_id             = aws_internet_gateway.gw.id
 }
 
-resource "aws_eip" "nat" {
-}
+resource "aws_eip" "nat" {}
 
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat.id
@@ -63,7 +62,7 @@ resource "aws_route_table_association" "private" {
   subnet_id      = aws_subnet.private.id
   route_table_id = aws_route_table.private.id
 }
+
 resource "aws_eip" "unused_eip" {
   instance = null
 }
-
